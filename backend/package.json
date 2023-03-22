@@ -1,0 +1,23 @@
+{
+  "name": "shopit",
+  "version": "1.0.0",
+  "description": "Backend shopit ecommerce MEARN App",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "SET NODE_DEV=DEVELOPMENT& nodemon server.js",
+    "prod": "SET NODE_DEV=PRODUCTION& nodemon server.js",
+    "seed": "node util/seeder.js"
+  },
+  "author": "Felix Kiptoo",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongoose": "^7.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.21"
+  }
+}
