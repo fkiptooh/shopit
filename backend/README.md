@@ -5,3 +5,12 @@ I have a postman environmental setup to have all the backend apis for each funct
 
 **Fetch all products**
  ![Fetch all products](https://github.com/fkiptooh/shopit/blob/main/backend/screenshots/backenAPI.png "Fetch products")
+
+ ### Error handling using global error handling class
+ This is a convenient way to handle errors that the apis may throw using a friendly method that javascript offers.
+
+ **Error handling response in Production environment - A case where the user is not a developer**
+ ![ProductionErr](https://github.com/fkiptooh/shopit/blob/main/backend/screenshots/Error%20in%20Production.png)
+
+ **Error handling in development environment-Technically for debugging purposes**
+ ![DevelopmentErr](https://github.com/fkiptooh/shopit/blob/main/backend/screenshots/Error%20in%20development.png)
