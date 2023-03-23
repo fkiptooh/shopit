@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "dev": "SET NODE_DEV=DEVELOPMENT& nodemon server.js",
-    "prod": "SET NODE_DEV=PRODUCTION& nodemon server.js",
+    "dev": "export NODE_ENV=DEVELOPMENT && nodemon server.js",
+    "prod": "export NODE_ENV=PRODUCTION && nodemon server.js",
     "seed": "node util/seeder.js"
   },
   "author": "Felix Kiptoo",
