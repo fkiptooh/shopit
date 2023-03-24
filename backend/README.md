@@ -14,3 +14,7 @@ I have a postman environmental setup to have all the backend apis for each funct
 
  **Error handling in development environment-Technically for debugging purposes**
  ![DevelopmentErr](https://github.com/fkiptooh/shopit/blob/main/backend/screenshots/Error%20in%20development.png)
+
+ ### Catching Async Errors
+ **Example screenshot for catching an async error when adding a new product without name property for instance**
+ ![AsyncError](https://github.com/fkiptooh/shopit/blob/main/backend/screenshots/catching%20async%20error.png)
