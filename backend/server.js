@@ -1,11 +1,21 @@
 const app = require('./app');
 const connectDB = require('./config/database')
 
+// Handling the Uncaught Exception
+process.on('uncaughtException', err=> {
+    console.log(`ERROR: ${err.message}`)
+    console.log(`Shutting dowm the server due to uncaughtExeption`)
+    process.exit(1);
+})
+
 // setting up config 
 require('dotenv').config({ path: './config/config.env'})
 
 // connecting database
 connectDB();
+
+// example of the uncaught exception
+// console.log(a)
 
 
 const server = app.listen(process.env.PORT, ()=> {
