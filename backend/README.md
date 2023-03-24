@@ -18,3 +18,6 @@ I have a postman environmental setup to have all the backend apis for each funct
  ### Catching Async Errors
  **Example screenshot for catching an async error when adding a new product without name property for instance**
  ![AsyncError](https://github.com/fkiptooh/shopit/blob/main/backend/screenshots/catching%20async%20error.png)
+
+### Handling Mongoose ValidationErrors
+![MongooseValidationError](https://github.com/fkiptooh/shopit/blob/main/backend/screenshots/Mongoose%20validation%20error.png)
