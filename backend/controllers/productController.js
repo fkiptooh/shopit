@@ -27,10 +27,7 @@ exports.getProducts = catchAsyncErrors(async(req, res, next)=> {
 // get single product => /api/v1/product/:id
 exports.getSingleProduct = catchAsyncErrors(async (req, res, next) => {
     const { id: productId } = req.params;
-    const product = await Product.findById(productId).exec()
-    .catch((err) => {
-        console.log(err);
-      });
+    const product = await Product.findById(productId).exec().catch((err)=>{console.log(err)})
       
     if(!product){
         return next(new ErrorHandler('Product not found', 404))
@@ -41,7 +38,6 @@ exports.getSingleProduct = catchAsyncErrors(async (req, res, next) => {
         product
     })
 })
-
 // update products /api/v1/product/:id
 exports.updateProduct = catchAsyncErrors(async (req, res, next)=> {
     const { id: productId} = req.params;
