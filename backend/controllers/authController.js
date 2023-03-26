@@ -15,9 +15,12 @@ exports.registerUser = catchAsyncErrors(async(req, res, next)=>{
             public_id: "ghgshsgs",
             url: "hdjhdhdhjd"
         }
-    });
+    })
+
+    const token = user.getJwtToken();
+
     res.status(201).json({
         success: true,
-        user
+        token
     })
 })
