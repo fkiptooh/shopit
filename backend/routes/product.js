@@ -9,9 +9,11 @@ const { getProducts,
         deleteProduct
  } = require('../controllers/productController');
 
+ const { isAuthenticatedUser } = require('../middlewares/auth')
+
 // router.route('/products').get(getProducts);
 
-router.get("/products", getProducts);
+router.get("/products", isAuthenticatedUser, getProducts);
 router.post("/product/new", newProduct);
 // router.get('/product/:id', getSingleProduct)
 router.route('/product/:id').get(getSingleProduct);
