@@ -13,13 +13,13 @@ const { getProducts,
 
 // router.route('/products').get(getProducts);
 
-router.get("/products", isAuthenticatedUser, authorizedRoles('admin'), getProducts);
-router.post("/product/new", isAuthenticatedUser, newProduct);
+router.get("/products", getProducts);
+router.post("/product/new", isAuthenticatedUser, authorizedRoles('admin'), newProduct);
 // router.get('/product/:id', getSingleProduct)
 router.route('/product/:id').get(getSingleProduct);
 // router.put('/admin/product/:id', updateProduct);
-router.route('/admin/product/:id').put(isAuthenticatedUser, updateProduct)
-                                  .delete(isAuthenticatedUser, deleteProduct);
+router.route('/admin/product/:id').put(isAuthenticatedUser, authorizedRoles('admin'), updateProduct)
+                                  .delete(isAuthenticatedUser, authorizedRoles('admin'), deleteProduct);
 
 
 module.exports = router;
