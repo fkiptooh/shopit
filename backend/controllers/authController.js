@@ -149,3 +149,20 @@ exports.getUserProfile = catchAsyncErrors(async(req,res, next)=> {
         user
     });
 })
+
+// update password foe currently logged in user
+exports.updatePassword = catchAsyncErrors(async(req, res, next)=>{
+    const user = await User.findById(req.user.id).select('+password');
+    
+    // checking previous password
+    const isMatched = await user.comparePassword(req.body.oldPassword);
+
+    if(!isMatched){
+        return next(new ErrorHandler("The provided old password is incorrect", 400))
+    }
+
+    user.password = req.body.password;
+    await user.save();
+
+    sendToken(user, 200, res)
+})
