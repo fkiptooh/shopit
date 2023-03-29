@@ -3,6 +3,7 @@ const ErrorHandler = require('../util/errorHandler');
 const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
 const sendToken = require('../util/jwtToken');
 const sendEmail = require('../util/sendEmail');
+const crypto = require('crypto')
 
 
 // register user. /api/v1/register
@@ -83,7 +84,7 @@ exports.forgotPassword = catchAsyncErrors(async (req, res, next)=> {
     await user.save({ validateBeforeSave: false });
 
     // create a reset url
-    const resetUrl = `${req.protocal}://${req.get('host')}/api/v1/password/reset/${resetToken}`;
+    const resetUrl = `${req.protocol}://${req.get('host')}/api/v1/password/reset/${resetToken}`;
 
     const message = `Your reset password token is as follows:\n\n${resetUrl}\n\nIf you have not requested this email then ignore it.`
 
@@ -109,4 +110,32 @@ exports.forgotPassword = catchAsyncErrors(async (req, res, next)=> {
         return next(new ErrorHandler(error.message, 500));
         
     }
+})
+
+// reset password /api/v1/password/reset:token
+exports.resetPassword = catchAsyncErrors(async (req,res, next)=>{
+    // hash the url token
+    const resetPasswordToken = crypto.createHash('sha256').update(req.params.token).digest('hex');
+
+    const user = await User.findOne({
+        resetPasswordToken,
+        resetPasswordExpiry: { $gt: Date.now()}
+    })
+
+    if(!user){
+        return next(new ErrorHandler("Password token invalid or has expired", 400))
+    }
+
+    if(req.body.password !== req.body.confirmPassword){
+        return next(new ErrorHandler('Password missmatch', 400))
+    }
+
+    // Setup new password
+    user.password = req.body.password;
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpiry = undefined;
+
+    await user.save()
+
+    sendToken(user, 200, res);
 })
