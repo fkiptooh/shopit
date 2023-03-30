@@ -196,3 +196,17 @@ exports.allUsers = catchAsyncErrors(async(req, res, next)=>{
         users
     })
 })
+
+// Get user details
+exports.getUserDetails = catchAsyncErrors(async(req, res, next)=> {
+    const user = await User.findById(req.params.id);
+
+    if(!user){
+        return next(new ErrorHandler(`User not found with id: ${req.params.id}`, 400))
+    }
+
+    res.status(200).json({
+        success: true,
+        user
+    })
+})
