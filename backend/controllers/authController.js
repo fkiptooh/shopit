@@ -175,7 +175,7 @@ exports.updateProfile = catchAsyncErrors(async(req, res, next)=>{
         email: req.body.email
     }
     // Changing avatar > TODO since we will be implementing cloudinary.
-    const user = await User.findByIdAndUpdate(req.user.id, newUserData,{
+    const user = await User.findByIdAndUpdate(req.params.id, newUserData,{
         new: true,
         runValidators: true,
         useFindAndModify: false
@@ -204,6 +204,26 @@ exports.getUserDetails = catchAsyncErrors(async(req, res, next)=> {
     if(!user){
         return next(new ErrorHandler(`User not found with id: ${req.params.id}`, 400))
     }
+
+    res.status(200).json({
+        success: true,
+        user
+    })
+})
+
+// update user details /api/v1/admin/user/:id
+exports.updateUser = catchAsyncErrors(async(req,res,next)=>{
+    const newUserData = {
+        name: req.body.name,
+        email: req.body.email,
+        role: req.body.role
+    }
+
+    const user = await User.findByIdAndUpdate(req.params.id, newUserData, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false
+    })
 
     res.status(200).json({
         success: true,
