@@ -25,7 +25,7 @@ router.get("/me", isAuthenticatedUser, getUserProfile)
 router.put("/password/update", isAuthenticatedUser, updatePassword)
 router.put("/me/update", isAuthenticatedUser, updateProfile)
 router.get("/admin/users", isAuthenticatedUser, authorizedRoles("admin"), allUsers);
-// router.get("/admin/user/:id", isAuthenticatedUser, authorizedRoles("admin"), getUserDetails);
+router.get("/admin/user/:id", isAuthenticatedUser, authorizedRoles("admin"), getUserDetails);
 router.route("/admin/user/:id")
         .get(isAuthenticatedUser, authorizedRoles("admin"), getUserDetails)
         .put(isAuthenticatedUser, authorizedRoles("admin"), updateUser)
