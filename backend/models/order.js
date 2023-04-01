@@ -62,6 +62,9 @@ const orderSchema = mongoose.Schema({
             type: String
         }
     },
+    paidAt: {
+        type: Date
+    },
     itemsPrice: {
         type: Number,
         required: true,
@@ -76,6 +79,23 @@ const orderSchema = mongoose.Schema({
         type: Number,
         required: true,
         default: 0.0
+    },
+    totalPrice: {
+        type: String,
+        required: true,
+        default: 0.0
+    },
+    orderStatus: {
+        type: String,
+        required: true,
+        default: 'Processing'
+    },
+    deviveredAt: {
+        type: Date
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
     }
 
 })
