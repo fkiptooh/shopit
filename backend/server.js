@@ -4,7 +4,7 @@ const connectDB = require('./config/database')
 // Handling the Uncaught Exception
 process.on('uncaughtException', err=> {
     console.log(`ERROR: ${err.message}`)
-    console.log(`Shutting dowm the server due to uncaughtExeption`)
+    console.log(`Shutting down the server due to uncaughtExeption`)
     process.exit(1);
 })
 

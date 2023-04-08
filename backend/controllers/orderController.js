@@ -1,9 +1,8 @@
 const Order = require('../models/order')
 const Product = require('../models/product')
 
-const ErrorHandler = require('../util/apiFeatures')
+const ErrorHandler = require('../util/errorHandler')
 const catchAsyncErrors = require('../middlewares/catchAsyncErrors')
-const order = require('../models/order')
 
 // creating new order => /api/v1/order/new
 
@@ -107,3 +106,18 @@ async function updateStock(id, quantity){
 
     await product.save({ validateBeforeSave: false})
 }
+
+// Delete order by admin
+exports.deleteOrder = catchAsyncErrors(async(req,res,next)=>{
+    const order = await Order.findById(req.params.id)
+
+    if(!order){
+        return next(new ErrorHandler(`The order with id: ${req.params.id} is not found`, 404));
+    }
+
+   await Order.findOneAndDelete(order)
+
+    res.status(200).json({
+        success: true
+    })
+})
