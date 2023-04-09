@@ -1,2 +1,4 @@
 /backend/config
 /backend/node_modules
+/frontend/.gitignore
+/frontend/node_modules
