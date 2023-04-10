@@ -4,7 +4,7 @@ import React from 'react'
 
 const Home = () => {
   return (
-    <div className='container'>
+    <>
         <h1 id="products_heading">Latest Products</h1>
         <section id="products" class="container mt-5">
       <div class="row">
@@ -31,7 +31,7 @@ const Home = () => {
         </div>
         </div>
         </section>
-    </div>
+    </>
   )
 }
 
