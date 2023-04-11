@@ -5,6 +5,7 @@ import MetaData from './layout/MetaData'
 import { useDispatch, useSelector } from 'react-redux'
 import { getProducts } from '../actions/productActions'
 import Product from './products/Product'
+import Loader from './layout/Loader'
 
 const Home = () => {
     const { products, productsCount, error, loading } = useSelector(state => state.products)
@@ -15,7 +16,7 @@ const Home = () => {
     
   return (
     <>
-    { loading ? <h1 className='text text-danger'>Loading....</h1> :
+    { loading ? <Loader/> :
     <>
     <MetaData title={'Buy Best Products Online'}/>
         <h1 id="products_heading">Latest Products</h1>
