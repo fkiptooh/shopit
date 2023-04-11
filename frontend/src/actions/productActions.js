@@ -14,6 +14,7 @@ export const getProducts =()=> async(dispatch)=> {
         dispatch({ type: ALL_PRODUCTS_REQUEST});
 
         const { data } = await axios.get('/api/v1/products');
+        // const { data } = await axios.get(`${process.env.REACT_APP_API}/products`)
 
         dispatch({
             type: ALL_PRODUCTS_SUCCESS,
@@ -33,6 +34,7 @@ export const getProductDetails =(id)=> async(dispatch)=> {
         dispatch({ type: PRODUCT_DETAILS_REQUEST});
 
         const { data } = await axios.get(`/api/v1/product/${id}`);
+        // const { data } = await axios.get(`${process.env.REACT_APP_API}/product`)
 
         dispatch({
             type: PRODUCT_DETAILS_SUCCESS,
@@ -40,7 +42,7 @@ export const getProductDetails =(id)=> async(dispatch)=> {
         })
     } catch (error) {
         dispatch({
-            type: ALL_PRODUCTS_FAIL,
+            type: PRODUCT_DETAILS_FAIL,
             payload: error.response.data.message,
         })
     }
