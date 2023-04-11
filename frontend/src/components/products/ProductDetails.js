@@ -9,6 +9,7 @@ import { Carousel } from 'react-bootstrap';
 
 const ProductDetails = () => {
     const match = useParams();
+    // console.log(match.id)
     const dispatch = useDispatch();
     const alert = useAlert()
 

@@ -8,20 +8,27 @@ import Product from './products/Product'
 import Loader from './layout/Loader'
 import { useAlert } from 'react-alert'
 import Pagination  from 'react-js-pagination'
+import { useParams } from 'react-router-dom'
 
 const Home = () => {
     const { products, productsCount, error, loading, resPerPage } = useSelector(state => state.products)
     const [currentPage, setCurrentPage] = useState(1);
     const dispatch = useDispatch();
     const alert = useAlert();
+    // const match = useParams()
+
+   const { keyword } = useParams();
+//    const keyword = match.keyword
+//    console.log(keyword)
+
     useEffect(()=>{
         if(error){
             return alert.error(error);
         }
 
-        dispatch(getProducts(currentPage));
+        dispatch(getProducts(keyword, currentPage));
 
-    }, [dispatch, alert, error, currentPage])
+    }, [dispatch, alert, error, keyword, currentPage])
 
     const setCurrentPageNo = (pageNumber) => setCurrentPage(pageNumber)
     
