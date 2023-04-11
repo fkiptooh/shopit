@@ -23,7 +23,7 @@ const ProductDetails = () => {
     }, [dispatch, alert, error, match.id])
   return (
    <>
-   <MetaData title={`Product details: ${product.name}`}/>
+   <MetaData title={`${product.name}`}/>
     {loading ? <Loader/> :
     <>
          <div className="row f-flex justify-content-around">
