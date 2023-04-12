@@ -614,3 +614,31 @@ ul.CTAs a {
   font-size: 0.8rem;
   color: grey;
 }
+
+/* rc slider */
+.rc-slider-handle {
+  width: 20px;
+  height: 20px;
+  margin-top: -8px;
+  margin-left: -10px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+.rc-slider-handle:hover {
+  border-color: #aaa;
+}
+.rc-slider-handle:active {
+  box-shadow: none;
+}
+.rc-slider-track {
+  background-color: #ccc;
+}
+.rc-slider-track:hover {
+  background-color: #bbb;
+}
+.rc-slider-track:active {
+  background-color: #aaa;
+}
