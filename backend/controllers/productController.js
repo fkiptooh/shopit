@@ -2,9 +2,8 @@ const Product = require('../models/product')
 const ErrorHandler = require('../util/errorHandler');
 const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
 const ApiFeatures = require('../util/apiFeatures');
-const product = require('../models/product');
 
-// create ne product => /api/v1/product/new;
+// create new product => /api/v1/product/new;
 exports.newProduct = catchAsyncErrors(async(req, res, next) => {
     req.body.user = req.user.id;
     
@@ -17,31 +16,57 @@ exports.newProduct = catchAsyncErrors(async(req, res, next) => {
 
 }
 )
-// get all products controller.
-exports.getProducts = catchAsyncErrors(async(req, res, next)=> {
-
+// Get all products   =>   /api/v1/products?keyword=apple
+exports.getProducts = catchAsyncErrors(async (req, res, next) => {
     const resPerPage = 4;
-
     const productsCount = await Product.countDocuments()
-
     const apiFeatures = new ApiFeatures(Product.find(), req.query)
-                            .search()
-                            .filter()
-                            .pagination(resPerPage);
+        .search()
+        .filter()
+        .pagination(resPerPage);
 
-    // const products = await Product.find();
     const products = await apiFeatures.query;
-    
-    // setTimeout(()=>{
-        res.status(200).json({
-            success: true,
-            // count: products.length,
-            productsCount,
-            resPerPage,
-            products
-        })
-    // }, 1000)
-})
+    const filteredProductsCount = await Product.countDocuments(apiFeatures.query._conditions);
+
+    res.status(200).json({
+        success: true,
+        productsCount,
+        resPerPage,
+        filteredProductsCount,
+        products
+    });
+});
+
+
+// exports.getProducts = catchAsyncErrors(async (req, res, next) => {
+
+//     const resPerPage = 4;
+//     const productsCount = await Product.countDocuments();
+
+//     const apiFeatures = new ApiFeatures(Product.find(), req.query)
+//         .search()
+//         .filter()
+//         // .pagination(resPerPage)
+
+//     let products = apiFeatures.query;
+//     let filteredProductsCount = products.length;
+
+//     apiFeatures.pagination(resPerPage)
+//     products = await apiFeatures.query;
+
+
+//     res.status(200).json({
+//         success: true,
+//         productsCount,
+//         resPerPage,
+//         filteredProductsCount,
+//         products
+//     })
+
+// })
+
+
+
 
 // get single product => /api/v1/product/:id
 exports.getSingleProduct = catchAsyncErrors(async (req, res, next) => {

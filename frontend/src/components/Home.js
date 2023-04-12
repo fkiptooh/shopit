@@ -1,9 +1,6 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from 'react'
-// import Slider from 'rc-slider';
-// import ReactSlider from 'react-slider';
-// import 'rc-slider/assets/index.css';
 
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
@@ -17,21 +14,26 @@ import { useAlert } from 'react-alert'
 import Pagination  from 'react-js-pagination'
 import { useParams } from 'react-router-dom'
 
-// const Range = Slider
-// const { createSliderWithTooltip } = Slider;
-// const Range = createSliderWithTooltip(Slider.Range)
-
-// const createSliderWithTooltip = Slider.createSliderWithTooltip;
-// const Range = createSliderWithTooltip(Slider.Range);
-
 import Tooltip from 'rc-tooltip';
 import 'rc-tooltip/assets/bootstrap.css';
 
 const Range  = Slider;
 
 const Home = () => {
-    const { products, productsCount, error, loading, resPerPage } = useSelector(state => state.products)
+    const { products, productsCount, error, loading, resPerPage, filteredProductsCount } = useSelector(state => state.products)
     const [price, setPrice] = useState([1, 1000]);
+    const [category, setCategory] = useState("");
+    const categories = [
+        'Electronics',
+        'Books',
+        'Food',
+        'Foot wear',
+        'Clothes',
+        'Headphones',
+        'Accessories',
+        'Cameras',
+        'Laptops'
+    ]
     const [currentPage, setCurrentPage] = useState(1);
     const dispatch = useDispatch();
     const alert = useAlert();
@@ -46,11 +48,17 @@ const Home = () => {
             return alert.error(error);
         }
 
-        dispatch(getProducts(keyword, currentPage, price));
+        dispatch(getProducts(keyword, currentPage, price, category));
 
-    }, [dispatch, alert, error, keyword, currentPage, price])
+    }, [dispatch, alert, error, keyword, currentPage, price, category])
 
     const setCurrentPageNo = (pageNumber) => setCurrentPage(pageNumber)
+
+    let count = productsCount
+    if(keyword){
+        count = filteredProductsCount
+    }
+    
     
   return (
     <>
@@ -81,6 +89,22 @@ const Home = () => {
                                 placement: 'top',
                             }}
                         />
+                        <hr className='my-5'/>
+                        <div className="mt-5">
+                            <h4 className='mb-3'> Categories </h4>
+                            <ul className="pl-0">
+                                {categories.map(category=>(
+                                    <li style={{
+                                        cursor: 'pointer',
+                                        listStyleType: 'none'
+                                            }}
+                                            key={category}
+                                            onClick={()=> setCategory(category)}>
+                                                {category}
+                                            </li>
+                                ))}
+                            </ul>
+                        </div>
                         </div>
                     </div>
                     <div className="col-6 col-md-9">
@@ -100,7 +124,7 @@ const Home = () => {
             )}
         </div>
         </section>
-        {resPerPage <= productsCount &&(
+        {resPerPage <= count &&(
             <div className='d-flex justify-content-center mt-5'>
             <Pagination
                 activePage={currentPage}
